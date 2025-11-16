@@ -56,9 +56,9 @@ Currently focused on:
 ## 📊 GitHub Stats
 <div align="center">
 
-![](https://github-readme-stats.vercel.app/api?username=ronish-jpg&theme=tokyonight&hide_border=true&show_icons=true&title_color=00FFFF&icon_color=FF0000)<br/>
-![](https://github-readme-streak-stats.herokuapp.com?user=ronish-jpg&theme=tokyonight_duo&hide_border=true&fire=FF0000&ring=00FFFF)<br/>
-![](https://github-readme-stats.vercel.app/api/top-langs/?username=ronish-jpg&theme=tokyonight&hide_border=true&layout=compact&title_color=00FFFF)
+![](https://github-readme-stats.vercel.app/api?username=itsmeronish3&theme=tokyonight&hide_border=true&show_icons=true&title_color=00FFFF&icon_color=FF0000)<br/>
+![](https://github-readme-streak-stats.herokuapp.com?user=itsmeronish3&theme=tokyonight_duo&hide_border=true&fire=FF0000&ring=00FFFF)<br/>
+![](https://github-readme-stats.vercel.app/api/top-langs/?username=itsmeronish3&theme=tokyonight&hide_border=true&layout=compact&title_color=00FFFF)
 
 </div>
 
@@ -66,7 +66,7 @@ Currently focused on:
 
 ## 🏆 Podium Trophies
 <div align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=ronish-jpg&theme=tokyonight&no-frame=true&no-bg=true&margin-w=15" />
+  <img src="https://github-profile-trophy.vercel.app/?username=itsmeronish3&theme=tokyonight&no-frame=true&no-bg=true&margin-w=15" />
 </div>
 
 ---
