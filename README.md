@@ -79,5 +79,5 @@ Currently focused on:
 </h1>
 
 <!---
-ronish-jpg/ronish-jpg ✨ special ✨ repository because its `README.md` appears on your GitHub profile.
+itsmeronish ✨ special ✨ repository because its `README.md` appears on your GitHub profile.
 --->
