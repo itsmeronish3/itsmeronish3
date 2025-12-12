@@ -12,25 +12,37 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Generate F1 Car SVG
+      - name: Generate F1 Car SVG (Snake Contribution)
         uses: Platane/snk/svg-only@v3
         with:
-          github_user_name: ronish-jpg
+          github_user_name: itsmeronish3
           outputs: |
             dist/github-contribution-grid-f1.svg
-          color_snake: "#DA291C" # Red Bull red
+          color_snake: "#DA291C"
           color_dots: "#1E41FF,#DA291C,#FFD700,#FFFFFF,#1E41FF"
 
       - name: Add F1 Red Bull Car Overlay
         run: |
           mkdir -p dist
-          cp redbull-f1-car.png.png dist/redbull-f1-car.png
-          echo '<svg xmlns="http://www.w3.org/2000/svg" width="800" height="200">
-            <image href="redbull-f1-car.png" x="10" y="150" height="50" width="120">
-              <animate attributeName="x" from="10" to="800" dur="10s" repeatCount="indefinite" />
+          
+          # Make sure your image exists in the repo
+          cp redbull-f1-car.png dist/redbull-f1-car.png
+
+          # Begin final SVG
+          echo '<svg xmlns="http://www.w3.org/2000/svg" width="900" height="320" preserveAspectRatio="xMidYMid meet">
+            <g>' > dist/github-contribution-grid-f1-final.svg
+
+          # Insert the generated snake SVG body (remove its first <svg> tag)
+          sed '1d' dist/github-contribution-grid-f1.svg >> dist/github-contribution-grid-f1-final.svg
+
+          # Animated F1 car overlay
+          echo '
+            <image href="redbull-f1-car.png" x="-200" y="220" width="160" height="70">
+              <animate attributeName="x" from="-200" to="1000" dur="12s" repeatCount="indefinite" />
             </image>
-          </svg>' > dist/f1-car-overlay.svg
-          cat dist/github-contribution-grid-f1.svg dist/f1-car-overlay.svg > dist/github-contribution-grid-f1-final.svg
+
+          </g>
+          </svg>' >> dist/github-contribution-grid-f1-final.svg
 
       - name: Deploy to GitHub Pages
         uses: crazy-max/ghaction-github-pages@v3
