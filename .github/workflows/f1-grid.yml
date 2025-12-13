@@ -19,7 +19,7 @@ jobs:
           outputs: |
             dist/github-contribution-grid-f1.svg
           color_snake: "#DA291C"
-          color_dots: "#1E41FF,#DA291C,#FFD700,#FFFFFF,#1E41FF"
+          color_dots: "#121212,#0600EF,#DA291C,#FFD700,#FFC906"
 
       - name: Add F1 Red Bull Car Overlay
         run: |
