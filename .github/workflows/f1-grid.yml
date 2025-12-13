@@ -32,16 +32,20 @@ jobs:
           SNAKE_CONTENT=$(sed -n '/<svg/,/<\/svg>/p' dist/github-contribution-grid-f1.svg | sed '1d;$d')
 
           # Create final SVG with contribution grid and F1 car
-          cat > dist/github-contribution-grid-f1-final.svg << EOF
+          cat > dist/github-contribution-grid-f1-final.svg << 'EOF'
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="320" preserveAspectRatio="xMidYMid meet">
   <g>
-${SNAKE_CONTENT}
-    <image href="data:image/png;base64,${IMAGE_BASE64}" x="-200" y="220" width="160" height="70">
+SNAKE_PLACEHOLDER
+    <image href="data:image/png;base64,IMAGE_PLACEHOLDER" x="-200" y="220" width="160" height="70">
       <animate attributeName="x" from="-200" to="1000" dur="12s" repeatCount="indefinite" />
     </image>
   </g>
 </svg>
 EOF
+
+          # Replace placeholders
+          sed -i "s|SNAKE_PLACEHOLDER|${SNAKE_CONTENT}|" dist/github-contribution-grid-f1-final.svg
+          sed -i "s|IMAGE_PLACEHOLDER|${IMAGE_BASE64}|" dist/github-contribution-grid-f1-final.svg
 
       - name: Deploy to GitHub Pages
         uses: crazy-max/ghaction-github-pages@v3
