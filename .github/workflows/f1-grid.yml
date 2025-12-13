@@ -28,24 +28,42 @@ jobs:
           # Convert PNG to Base64 for embedding in SVG
           IMAGE_BASE64=$(base64 -w 0 redbull-f1-car.png)
 
-          # Get the content of the snake SVG (everything between <svg> tags)
-          SNAKE_CONTENT=$(sed -n '/<svg/,/<\/svg>/p' dist/github-contribution-grid-f1.svg | sed '1d;$d')
+          # Use Python to combine the SVG files properly
+          python3 << 'PYTHON_SCRIPT'
+import re
 
-          # Create final SVG with contribution grid and F1 car
-          cat > dist/github-contribution-grid-f1-final.svg << 'EOF'
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="320" preserveAspectRatio="xMidYMid meet">
+# Read the snake SVG
+with open('dist/github-contribution-grid-f1.svg', 'r') as f:
+    snake_svg = f.read()
+
+# Read the Base64 image
+with open('redbull-f1-car.png', 'rb') as f:
+    import base64
+    image_base64 = base64.b64encode(f.read()).decode('utf-8')
+
+# Extract content between svg tags (excluding the opening and closing svg tags)
+match = re.search(r'<svg[^>]*>(.*)</svg>', snake_svg, re.DOTALL)
+if match:
+    snake_content = match.group(1)
+else:
+    snake_content = ""
+
+# Create the final SVG
+final_svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="900" height="320" preserveAspectRatio="xMidYMid meet">
   <g>
-SNAKE_PLACEHOLDER
-    <image href="data:image/png;base64,IMAGE_PLACEHOLDER" x="-200" y="220" width="160" height="70">
+{snake_content}
+    <image href="data:image/png;base64,{image_base64}" x="-200" y="220" width="160" height="70">
       <animate attributeName="x" from="-200" to="1000" dur="12s" repeatCount="indefinite" />
     </image>
   </g>
-</svg>
-EOF
+</svg>'''
 
-          # Replace placeholders
-          sed -i "s|SNAKE_PLACEHOLDER|${SNAKE_CONTENT}|" dist/github-contribution-grid-f1-final.svg
-          sed -i "s|IMAGE_PLACEHOLDER|${IMAGE_BASE64}|" dist/github-contribution-grid-f1-final.svg
+# Write the final SVG
+with open('dist/github-contribution-grid-f1-final.svg', 'w') as f:
+    f.write(final_svg)
+
+print("✅ F1 SVG created successfully!")
+PYTHON_SCRIPT
 
       - name: Deploy to GitHub Pages
         uses: crazy-max/ghaction-github-pages@v3
