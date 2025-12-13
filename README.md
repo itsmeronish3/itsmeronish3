@@ -47,7 +47,11 @@ Currently focused on:
 ## 🏎️ My Contributions on Track
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/itsmeronish3/itsmeronish3/output/github-contribution-grid-f1-final.svg" alt="Red Bull F1 Racing Contribution Animation" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/itsmeronish3/itsmeronish3/output/github-contribution-grid-snake-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/itsmeronish3/itsmeronish3/output/github-contribution-grid-snake.svg">
+    <img alt="github contribution grid snake animation" src="https://raw.githubusercontent.com/itsmeronish3/itsmeronish3/output/github-contribution-grid-snake.svg">
+  </picture>
   <br/>
   <em>“Every commit is a lap — every repo is a race.”</em>
 </div>

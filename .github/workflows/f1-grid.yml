@@ -1,72 +1,26 @@
-name: Generate F1 Racing Contribution Grid
+name: generate animation
 
 on:
   schedule:
-    - cron: "0 */12 * * *"  # every 12 hours
+    - cron: "0 */12 * * *"
   workflow_dispatch:
 
 jobs:
   generate:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-
-      - name: Generate F1 Car SVG (Snake Contribution)
+      - name: generate github-contribution-grid-snake.svg
         uses: Platane/snk/svg-only@v3
         with:
-          github_user_name: itsmeronish3
+          github_user_name: ${{ github.repository_owner }}
           outputs: |
-            dist/github-contribution-grid-f1.svg
-          color_snake: "#DA291C"
-          color_dots: "#121212,#0600EF,#DA291C,#FFD700,#FFC906"
-
-      - name: Add F1 Red Bull Car Overlay
-        run: |
-          mkdir -p dist
-          
-          # Convert PNG to Base64 for embedding in SVG
-          IMAGE_BASE64=$(base64 -w 0 redbull-f1-car.png)
-
-          # Use Python to combine the SVG files properly
-          python3 << 'PYTHON_SCRIPT'
-import re
-
-# Read the snake SVG
-with open('dist/github-contribution-grid-f1.svg', 'r') as f:
-    snake_svg = f.read()
-
-# Read the Base64 image
-with open('redbull-f1-car.png', 'rb') as f:
-    import base64
-    image_base64 = base64.b64encode(f.read()).decode('utf-8')
-
-# Extract content between svg tags (excluding the opening and closing svg tags)
-match = re.search(r'<svg[^>]*>(.*)</svg>', snake_svg, re.DOTALL)
-if match:
-    snake_content = match.group(1)
-else:
-    snake_content = ""
-
-# Create the final SVG
-final_svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="900" height="320" preserveAspectRatio="xMidYMid meet">
-  <g>
-{snake_content}
-    <image href="data:image/png;base64,{image_base64}" x="-200" y="220" width="160" height="70">
-      <animate attributeName="x" from="-200" to="1000" dur="12s" repeatCount="indefinite" />
-    </image>
-  </g>
-</svg>'''
-
-# Write the final SVG
-with open('dist/github-contribution-grid-f1-final.svg', 'w') as f:
-    f.write(final_svg)
-
-print("✅ F1 SVG created successfully!")
-PYTHON_SCRIPT
-
-      - name: Deploy to GitHub Pages
-        uses: crazy-max/ghaction-github-pages@v3
+            dist/github-contribution-grid-snake.svg
+            dist/github-contribution-grid-snake-dark.svg?palette=github-dark
+            
+      - name: push github-contribution-grid-snake.svg to the output branch
+        uses: crazy-max/ghaction-github-pages@v3.1.0
         with:
           target_branch: output
           build_dir: dist
