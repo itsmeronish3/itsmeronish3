@@ -28,21 +28,20 @@ jobs:
           # Convert PNG to Base64 for embedding in SVG
           IMAGE_BASE64=$(base64 -w 0 redbull-f1-car.png)
 
-          # Begin final SVG
-          echo '<svg xmlns="http://www.w3.org/2000/svg" width="900" height="320" preserveAspectRatio="xMidYMid meet">
-            <g>' > dist/github-contribution-grid-f1-final.svg
+          # Get the content of the snake SVG (everything between <svg> tags)
+          SNAKE_CONTENT=$(sed -n '/<svg/,/<\/svg>/p' dist/github-contribution-grid-f1.svg | sed '1d;$d')
 
-          # Insert the generated snake SVG body (remove its first <svg> tag)
-          sed '1d' dist/github-contribution-grid-f1.svg >> dist/github-contribution-grid-f1-final.svg
-
-          # Animated F1 car overlay with embedded base64 image
-          echo "
-            <image href=\"data:image/png;base64,${IMAGE_BASE64}\" x=\"-200\" y=\"220\" width=\"160\" height=\"70\">
-              <animate attributeName=\"x\" from=\"-200\" to=\"1000\" dur=\"12s\" repeatCount=\"indefinite\" />
-            </image>
-
-          </g>
-          </svg>" >> dist/github-contribution-grid-f1-final.svg
+          # Create final SVG with contribution grid and F1 car
+          cat > dist/github-contribution-grid-f1-final.svg << EOF
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="320" preserveAspectRatio="xMidYMid meet">
+  <g>
+${SNAKE_CONTENT}
+    <image href="data:image/png;base64,${IMAGE_BASE64}" x="-200" y="220" width="160" height="70">
+      <animate attributeName="x" from="-200" to="1000" dur="12s" repeatCount="indefinite" />
+    </image>
+  </g>
+</svg>
+EOF
 
       - name: Deploy to GitHub Pages
         uses: crazy-max/ghaction-github-pages@v3
