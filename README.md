@@ -69,9 +69,10 @@ Currently focused on:
 
 ---
 
-## 🏆 Podium Trophies
+<h2 align="center">🏆 Podium Trophies</h2>
+
 <p align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=itsmeronish3&theme=tokyonight&no-frame=true&no-bg=true&margin-w=15" />
+  <img src="https://github-profile-trophy.vercel.app/?username=itsmeronish3&theme=tokyonight&no-frame=true&margin-w=15&v=1" />
 </p>
 
 
